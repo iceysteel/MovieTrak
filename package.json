@@ -1,0 +1,19 @@
+{
+  "name": "MovieTrak",
+  "version": "1.0.0",
+  "description": "MovieTrak NPM file",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "grunt init"
+  },
+  "author": "",
+  "license": "ISC"
+}

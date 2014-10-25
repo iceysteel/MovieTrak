@@ -4548,7 +4548,7 @@ a.list-group-item.active > .badge,
   padding: 30px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #eee;
+  background-color: #E74C3g;
 }
 .jumbotron h1,
 .jumbotron .h1 {
@@ -4560,7 +4560,7 @@ a.list-group-item.active > .badge,
   font-weight: 200;
 }
 .jumbotron > hr {
-  border-top-color: #d5d5d5;
+  border-top-color: #red;
 }
 .container .jumbotron {
   border-radius: 6px;
