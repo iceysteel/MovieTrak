@@ -42,20 +42,34 @@ function searchCallback(data) {
  var movies = data.movies;
 
  var movieCounter = 1;
+
+ var movieHTML = $("<div />").append($(".movie:eq(0)").clone()).html();
+ $(".movie").remove();
  $.each(movies, function(index, movie) {
-    if (movieCounter > 3) {
-        return false;
+    console.log(movie);
+    // if (movieCounter > 3) {
+    //     return false;
+    // }
+    var $movieDiv = $(movieHTML);
+
+    // debugger;
+    // console.log(movie.posters);
+
+    try {
+      var imgUrl = movie.posters.original;
+      imgUrl = imgUrl.replace("_tmb", "_deb");
+      console.log(imgUrl);
+      $movieDiv.find("div img").attr("src", imgUrl);
+      debugger;
+    }catch (error) {
+
     }
-    var movieDiv = $("#movie"+movieCounter)
 
-    var imgUrl = movie.posters.original;
-    imgUrl = imgUrl.replace("_tmb", "_deb");
-    $(movieDiv).find("div img").attr("src", imgUrl);
-    $(movieDiv).find("div div h3").text(movie.title);
+    $movieDiv.find("div div h3").text(movie.title);
 
-    $(movieDiv).find("div table .release").text(movie.release_dates.theater);
+    $movieDiv.find("div table .release").text(movie.release_dates.theater);
 
-    $(movieDiv).find("div a.btn").click(function() {addToWatchListHandler(movie.id)});
+    $movieDiv.find("div a.btn").click(function() {addToWatchListHandler(movie.id)});
 
     var stars = 1;
     var rating = movie.ratings.audience_score;
@@ -68,7 +82,9 @@ function searchCallback(data) {
     } else if (rating > 25) {
         stars = 2;
     }
-    $(movieDiv).find("div table .stars").addClass("stars"+stars);
+    $movieDiv.find("div table .stars").addClass("stars"+stars);
+
+    $("#movies").append($movieDiv);
 
     movieCounter++;
  });
@@ -118,55 +134,11 @@ function addToWatchListHandler(movieId) {
       <div>
 <!-- Jumbotron close -->
 <!-- Tile -->
-<div class="row">
-      <div id="movie1" class="col-sm-6 col-md-4">
+<div class="row" id="movies">
+      <div class="col-sm-6 col-md-4 movie">
         <div class="thumbnail">
           <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
-            <div class="caption">
-            <h3>Thumbnail label</h3>
-            <table>
-                <tr>
-                    <td class="releaseTitle">Release Date</td>
-                    <td class="release"></td>
-                </tr>
-                <tr>
-                    <td class="rating">Rating</td>
-                    <td class="stars"></td>
-                </tr>
-            </table>
-            <center>
-              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
-            </center>
-          </div>
-        </div>
-      </div>
-      <div id="movie2" class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-            <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
-                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
-            <div class="caption">
-            <h3>Thumbnail label</h3>
-            <table>
-                <tr>
-                    <td class="releaseTitle">Release Date</td>
-                    <td class="release"></td>
-                </tr>
-                <tr>
-                    <td class="rating">Rating</td>
-                    <td class="stars"></td>
-                </tr>
-            </table>
-            <center>
-              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
-            </center>
-          </div>
-        </div>
-      </div>
-      <div id="movie3" class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-            <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
-                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
             <div class="caption">
             <h3>Thumbnail label</h3>
             <table>

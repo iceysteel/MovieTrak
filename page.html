@@ -124,6 +124,85 @@
 
 
 </script>
+  <script>
+var apikey = "w78ab8sd5wzx3c2zuh3wakcu";
+var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0/lists";
+
+// construct the uri with our apikey
+var moviesSearchUrl = baseUrl + '/movies/upcoming.json?page_limit=9&apikey=' + apikey;
+var query = "upcoming";
+
+$(document).ready(function() {
+
+  // send off the query
+  $.ajax({
+    url: moviesSearchUrl + '&q=' + encodeURI(query),
+    dataType: "jsonp",
+    success: searchCallback
+  });
+});
+
+// callback for when we get back the results
+function searchCallback(data) {
+    console.log(data);
+ var movies = data.movies;
+
+ var movieCounter = 1;
+ movieHTML = $(".movie:eq(0)").html();
+ $.each(movies, function(index, movie) {
+    if (movieCounter > 3) {
+        return false;
+    }
+    var $movieDiv = $(movieHTML);
+
+    var imgUrl = movie.posters.original;
+    imgUrl = imgUrl.replace("_tmb", "_deb");
+    $movieDiv.find("div img").attr("src", imgUrl);
+    $movieDiv.find("div div h3").text(movie.title);
+
+    $movieDiv.find("div table .release").text(movie.release_dates.theater);
+
+    $movieDiv.find("div a.btn").click(function() {addToWatchListHandler(movie.id)});
+
+    var stars = 1;
+    var rating = movie.ratings.audience_score;
+    if (rating > 85) {
+        stars = 5;
+    } else if (rating > 60) {
+        stars = 4;
+    } else if (rating > 45) {
+        stars = 3;
+    } else if (rating > 25) {
+        stars = 2;
+    }
+    $movieDiv.find("div table .stars").addClass("stars"+stars);
+
+    $("#movies").append($movieDiv);
+
+    movieCounter++;
+ });
+}
+
+function addToWatchListHandler(movieId) {
+    var watchListValue = localStorage.getItem("watchList");
+    if (watchListValue && watchListValue != 'undefined') {
+        var watchList = watchListValue.split(',');
+        var newWatchList = [];
+        for (var i = 0; i < watchList.length; i++) {
+            var watchMovieId = watchList[i];
+            if (watchMovieId != movieId) {
+                newWatchList[newWatchList.length] = watchMovieId;
+            }
+        }
+        newWatchList[newWatchList.length] = movieId;
+        localStorage.setItem("watchList", newWatchList);
+    } else {
+        localStorage.setItem("watchList", [movieId]);
+    }
+    document.location.href = 'page.html';
+}
+
+    </script>
 
   </head>
 
@@ -160,9 +239,77 @@
 
 
 <!-- Movie listing display -->
-<div class="container-movie">
-  <div style="float:left;">image goes here</div>
-  <div>your fucking movie information goes here</div>
+<div class="row" id="movies">
+  <!-- movie repeat script -->
+
+   <div id="movie1" class="col-sm-6 col-md-4 movie">
+        <div class="thumbnail">
+          <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
+               src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
+            <div class="caption">
+            <h3>Thumbnail label</h3>
+            <table>
+                <tr>
+                    <td class="releaseTitle">Release Date</td>
+                    <td class="release"></td>
+                </tr>
+                <tr>
+                    <td class="rating">Rating</td>
+                    <td class="stars"></td>
+                </tr>
+            </table>
+            <center>
+              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
+            </center>
+          </div>
+        </div>
+      </div>
+
+
+   <div id="movie2" class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
+               src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
+            <div class="caption">
+            <h3>Thumbnail label</h3>
+            <table>
+                <tr>
+                    <td class="releaseTitle">Release Date</td>
+                    <td class="release"></td>
+                </tr>
+                <tr>
+                    <td class="rating">Rating</td>
+                    <td class="stars"></td>
+                </tr>
+            </table>
+            <center>
+              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div id="movie3" class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
+               src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
+            <div class="caption">
+            <h3>Thumbnail label</h3>
+            <table>
+                <tr>
+                    <td class="releaseTitle">Release Date</td>
+                    <td class="release"></td>
+                </tr>
+                <tr>
+                    <td class="rating">Rating</td>
+                    <td class="stars"></td>
+                </tr>
+            </table>
+            <center>
+              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
+            </center>
+          </div>
+        </div>
+      </div>
 </div>
 <!-- movie listing display close -->
 
