@@ -53,6 +53,9 @@ function searchCallback(data) {
     $(movieDiv).find("div img").attr("src", imgUrl);
     $(movieDiv).find("div div h3").text(movie.title);
 
+
+    $(movieDiv).find("div table .release").text(movie.release_dates.theater);
+
     var stars = 1;
     var rating = movie.ratings.audience_score;
     if (rating > 85) {
@@ -102,6 +105,10 @@ function searchCallback(data) {
             <h3>Thumbnail label</h3>
             <table>
                 <tr>
+                    <td class="releaseTitle">Release Date</td>
+                    <td class="release"></td>
+                </tr>
+                <tr>
                     <td class="rating">Rating</td>
                     <td class="stars"></td>
                 </tr>
@@ -120,6 +127,10 @@ function searchCallback(data) {
             <h3>Thumbnail label</h3>
             <table>
                 <tr>
+                    <td class="releaseTitle">Release Date</td>
+                    <td class="release"></td>
+                </tr>
+                <tr>
                     <td class="rating">Rating</td>
                     <td class="stars"></td>
                 </tr>
@@ -137,6 +148,10 @@ function searchCallback(data) {
             <div class="caption">
             <h3>Thumbnail label</h3>
             <table>
+                <tr>
+                    <td class="releaseTitle">Release Date</td>
+                    <td class="release"></td>
+                </tr>
                 <tr>
                     <td class="rating">Rating</td>
                     <td class="stars"></td>

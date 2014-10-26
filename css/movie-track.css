@@ -1,34 +1,34 @@
 td.stars5 {
     background-image: url("../img/stars.jpg");
-    background-position: 20px 245px;
+    background-position: -10px 245px;
     height: 50px;
     width: 245px;
 }
 
 td.stars4 {
     background-image: url("../img/stars.jpg");
-    background-position: 20px 195px;
+    background-position: -10px 195px;
     height: 50px;
     width: 245px;
 }
 
 td.stars3 {
     background-image: url("../img/stars.jpg");
-    background-position: 20px 145px;
+    background-position: -10px 145px;
     height: 50px;
     width: 245px;
 }
 
 td.stars2 {
     background-image: url("../img/stars.jpg");
-    background-position: 20px 95px;
+    background-position: -10px 95px;
     height: 50px;
     width: 245px;
 }
 
 td.stars1 {
     background-image: url("../img/stars.jpg");
-    background-position: 20px 46px;
+    background-position: -10px 46px;
     height: 50px;
     width: 245px;
 }
@@ -38,7 +38,15 @@ td.rating {
     color: #787878;
 }
 
+td.releaseTitle {
+    width: 100px
+}
+
 img.movie-image {
     height: 200px;
     display: block;
+}
+
+div h3 {
+    text-align: center;
 }
