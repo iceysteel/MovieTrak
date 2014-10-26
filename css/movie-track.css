@@ -1,0 +1,44 @@
+td.stars5 {
+    background-image: url("../img/stars.jpg");
+    background-position: 20px 245px;
+    height: 50px;
+    width: 245px;
+}
+
+td.stars4 {
+    background-image: url("../img/stars.jpg");
+    background-position: 20px 195px;
+    height: 50px;
+    width: 245px;
+}
+
+td.stars3 {
+    background-image: url("../img/stars.jpg");
+    background-position: 20px 145px;
+    height: 50px;
+    width: 245px;
+}
+
+td.stars2 {
+    background-image: url("../img/stars.jpg");
+    background-position: 20px 95px;
+    height: 50px;
+    width: 245px;
+}
+
+td.stars1 {
+    background-image: url("../img/stars.jpg");
+    background-position: 20px 46px;
+    height: 50px;
+    width: 245px;
+}
+
+td.rating {
+    font-size: 18px;
+    color: #787878;
+}
+
+img.movie-image {
+    height: 200px;
+    display: block;
+}
