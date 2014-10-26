@@ -53,8 +53,9 @@ function searchCallback(data) {
     $(movieDiv).find("div img").attr("src", imgUrl);
     $(movieDiv).find("div div h3").text(movie.title);
 
-
     $(movieDiv).find("div table .release").text(movie.release_dates.theater);
+
+    $(movieDiv).find("div a.btn").click(function() {addToWatchListHandler(movie.id)});
 
     var stars = 1;
     var rating = movie.ratings.audience_score;
@@ -73,6 +74,24 @@ function searchCallback(data) {
  });
 }
 
+function addToWatchListHandler(movieId) {
+    var watchListValue = localStorage.getItem("watchList");
+    if (watchListValue && watchListValue != 'undefined') {
+        var watchList = watchListValue.split(',');
+        var newWatchList = [];
+        for (var i = 0; i < watchList.length; i++) {
+            var watchMovieId = watchList[i];
+            if (watchMovieId != movieId) {
+                newWatchList[newWatchList.length] = watchMovieId;
+            }
+        }
+        newWatchList[newWatchList.length] = movieId;
+        localStorage.setItem("watchList", newWatchList);
+    } else {
+        localStorage.setItem("watchList", [movieId]);
+    }
+    document.location.href = 'page.html';
+}
 
     </script>
   </head>
@@ -83,7 +102,7 @@ function searchCallback(data) {
       <center>
       <h1>MovieTrak</h1>
       <p >Never Miss A Movie.</p>
-      <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      <p><a href="page.html" class="btn btn-primary btn-lg" role="button">Browse Movies</a></p>
     </center>
     </div>
     </div>
