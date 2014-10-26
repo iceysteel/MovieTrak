@@ -68,15 +68,57 @@
             $("#userPic").hide();
         });
 
-        var user = Parse.User.current();
-        if (user) {
-            var fbData = user.get("authData").facebook;
-            $("#userPic").html("<img src='http://graph.facebook.com/" + fbData.id + "/picture' />")
-            $("#fb-login-btn").hide();
-            $("#userPic").show();
+        function getCurrentWatchList() {
+            var result;
+            var watchListValue = localStorage.getItem("watchList");
+            if (watchListValue && watchListValue != 'undefined') {
+                result = watchListValue.split(',');
+            }
+            return result;
         }
 
+        function addToWatchListHandler(movieId) {
+            var watchList = getCurrentWatchList();
+            if (watchList) {
+                var newWatchList = [];
+                for (var i = 0; i < watchList.length; i++) {
+                    var watchMovieId = watchList[i];
+                    if (watchMovieId != movieId) {
+                        newWatchList[newWatchList.length] = watchMovieId;
+                    }
+                }
+                newWatchList[newWatchList.length] = movieId;
+                localStorage.setItem("watchList", newWatchList);
+            } else {
+                localStorage.setItem("watchList", [movieId]);
+            }
+        }
+
+        function theUltimateQuestionOfLifeTheUniverseAndEverything() {
+
+            var user = Parse.User.current();
+            if (user) {
+                var fbData = user.get("authData").facebook;
+                $("#userPic").html("<img src='http://graph.facebook.com/" + fbData.id + "/picture' />")
+                $("#fb-login-btn").hide();
+                $("#userPic").show();
+            }
+
+            var currentWatchList = getCurrentWatchList();
+            var watchListLength = 0;
+            if (currentWatchList) {
+                watchListLength = currentWatchList.length;
+            }
+            $("#watch-list-counter").text(watchListLength);
+        }
+
+
+
+        theUltimateQuestionOfLifeTheUniverseAndEverything();
     });
+
+
+
 </script>
 
   </head>
@@ -101,7 +143,7 @@
             <li id="userPic"></li>
             <li class="active"><a href="#">About</a></li>
             <li><a href="#">Watch with Friends</a></li>
-            <li><a href="#">Your Watchlist</a></li>
+            <li><a id="watch-list" href="#" title="Your Watchlist"></a><div id="watch-list-counter">&nbsp;</div></li>
           </ul>
 
           <button id="fb-login-btn" type="button" class="btn btn-default">Sign In</button>

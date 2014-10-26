@@ -95,3 +95,21 @@
 button#fb-login-btn {
     margin-top: 7px;
 }
+
+a#watch-list {
+    background-image: url("../img/tomato-images.png");
+    background-position: -239px 134px;
+    height: 51px;
+    width: 47px;
+}
+
+div#watch-list-counter {
+    margin-top: -24px;
+    margin-right: 24px;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 2;
+    color: black;
+    text-align: center;
+    position: relative;
+}
