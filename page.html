@@ -7,9 +7,8 @@
     <title>MovieTrak</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <link href="css/custom.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+     <link href="css/custom.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,45 +17,24 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
      <script>
-var apikey = "w78ab8sd5wzx3c2zuh3wakcu";
-var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0/lists";
+        var apikey = "w78ab8sd5wzx3c2zuh3wakcu";
+        var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0/lists";
 
-// construct the uri with our apikey
-var moviesSearchUrl = baseUrl + '/movies/upcoming.json?page_limit=6&apikey=' + apikey;
-var query = "upcoming";
+        // construct the uri with our apikey
+        var moviesSearchUrl = baseUrl + '/movies/upcoming.json?page_limit=6&apikey=' + apikey;
+        var query = "upcoming";
 
-$(document).ready(function() {
+        $(document).ready(function() {
 
-  // send off the query
-  $.ajax({
-    url: moviesSearchUrl + '&q=' + encodeURI(query),
-    dataType: "jsonp",
-    success: searchCallback
-  });
-});
-</script>
-<style type="text/css">
+          // send off the query
+          $.ajax({
+            url: moviesSearchUrl + '&q=' + encodeURI(query),
+            dataType: "jsonp",
+            success: searchCallback
+          });
+        });
+     </script>
 
-#footer {
-   position:absolute;
-   bottom:0;
-   width:100%;
-   height:60px;   /* Height of the footer */
- }
-.movieblock {
-  max-width: 700px;
-  max-height: 200px;
-  background-color: #red;
-}
-.container-movie {
-  max-width:70%; 
-  min-height:200px; 
-  border: solid lightgrey 1px; 
-  margin-left:20px; 
-  background-color:#f8f8f8;
-}
-
-</style>
   </head>
 
   <body>
@@ -75,7 +53,7 @@ $(document).ready(function() {
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
-          <ul class="nav navbar-nav" style="float:right;">
+          <ul class="nav navbar-nav" style="float:right; color:#fff;">
             <li class="active"><a href="#">About</a></li>
             <li><a href="#">Watch with Friends</a></li>
             <li><a href="#">Your Watchlist</a></li>
@@ -97,15 +75,19 @@ $(document).ready(function() {
 
 
 
-
+<!-- The motherfuckin footer -->
 <div>
   <footer id="footer">
-  <p>Powered by Coffee at <a href="http://www.ycombinator.com">Y-Combinator</a></p>
+  <p>Powered by caffeine at <a href="http://www.ycombinator.com">Y-Combinator</a></p>
   </footer>
 </div>
+<!-- closing the motherfuckin footer -->
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
   </body>
+
+
 </html>
