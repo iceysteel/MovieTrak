@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MovieTrak</title>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
-
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -121,10 +120,9 @@
         theUltimateQuestionOfLifeTheUniverseAndEverything();
     });
 
-
-
+    var Votes = Parse.Object.extend("Votes");
 </script>
-  <script>
+ <script>
 var apikey = "w78ab8sd5wzx3c2zuh3wakcu";
 var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0/lists";
 
@@ -148,16 +146,31 @@ function searchCallback(data) {
  var movies = data.movies;
 
  var movieCounter = 1;
- movieHTML = $(".movie:eq(0)").html();
+
+ var movieHTML = $("<div />").append($(".movie:eq(0)").clone()).html();
+ $(".movie").remove();
  $.each(movies, function(index, movie) {
-    if (movieCounter > 3) {
-        return false;
-    }
+    console.log(movie);
+    // if (movieCounter > 3) {
+    //     return false;
+    // }
     var $movieDiv = $(movieHTML);
 
-    var imgUrl = movie.posters.original;
-    imgUrl = imgUrl.replace("_tmb", "_deb");
-    $movieDiv.find("div img").attr("src", imgUrl);
+    // debugger;
+    // console.log(movie.posters);
+
+    try {
+      var imgUrl = movie.posters.original;
+      imgUrl = imgUrl.replace("_tmb", "_deb");
+      console.log(imgUrl);
+      $movieDiv.find("div img").attr("src", imgUrl);
+      // debugger;
+    }catch (error) {
+
+    }
+
+    $movieDiv.data("movie-id", movie.id);
+
     $movieDiv.find("div div h3").text(movie.title);
 
     $movieDiv.find("div table .release").text(movie.release_dates.theater);
@@ -177,9 +190,78 @@ function searchCallback(data) {
     }
     $movieDiv.find("div table .stars").addClass("stars"+stars);
 
-    $("#movies").append($movieDiv);
+    $movieDiv.find('.upboatbutton').click(function(){
+      debugger;
+      var $movieDiv = $(this).closest(".movie");
+      console.log("UPBOAT!", $movieDiv);
+      var movieId = $movieDiv.data("movie-id");
+      var query = new Parse.Query(Votes);
+      query.equalTo("movieId", movieId);
+      query.find({
+        success: function(results) {
+          console.log('results', results);
+          if(results.length > 0){
+            var vote = results[0];
+            var votes = vote.get("numVotes");
+            votes++;
+            vote.set("numVotes", votes);
+            vote.save(null, {
+              success: function(vote) {
+                // Execute any logic that should take place after the object is saved.
+                console.log(vote);
+                $movieDiv.find('.votecount').text(votes);
+              },
+              error: function(vote, error) {
+                // Execute any logic that should take place if the save fails.
+                // error is a Parse.Error with an error code and message.
+                console.log(vote, error);
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    });
 
-    movieCounter++;
+    var query = new Parse.Query(Votes);
+    query.equalTo("movieId", movie.id);
+    query.find({
+      success: function(results) {
+        // debugger;
+        console.log('results', results);
+
+        if(results.length > 0){
+          $movieDiv.find("div .votecount").text(results[0].get("numVotes"));
+        }else{
+          var vote = new Votes();
+          vote.set("movieId", movie.id);
+          vote.set("numVotes", 0);
+          $movieDiv.find("div .votecount").text(0);
+          vote.save(null, {
+            success: function(votes) {
+              // Execute any logic that should take place after the object is saved.
+              console.log(votes);
+            },
+            error: function(votes, error) {
+              // Execute any logic that should take place if the save fails.
+              // error is a Parse.Error with an error code and message.
+              console.log(votes, error);
+            }
+          });
+        }
+        movieCounter++;
+        $("#movies").append($movieDiv);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+
+
+
+    
  });
 }
 
@@ -239,10 +321,9 @@ function addToWatchListHandler(movieId) {
 
 
 <!-- Movie listing display -->
+<!-- Tile -->
 <div class="row" id="movies">
-  <!-- movie repeat script -->
-
-   <div id="movie1" class="col-sm-6 col-md-4 movie">
+      <div class="col-sm-6 col-md-4 movie">
         <div class="thumbnail">
           <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
@@ -259,60 +340,17 @@ function addToWatchListHandler(movieId) {
                 </tr>
             </table>
             <center>
-              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
+              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a>
+             <div class="btn btn-default upboatbutton">Thumbs up</div><span class="votecount"></span></p>
             </center>
           </div>
         </div>
       </div>
-
-
-   <div id="movie2" class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
-               src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
-            <div class="caption">
-            <h3>Thumbnail label</h3>
-            <table>
-                <tr>
-                    <td class="releaseTitle">Release Date</td>
-                    <td class="release"></td>
-                </tr>
-                <tr>
-                    <td class="rating">Rating</td>
-                    <td class="stars"></td>
-                </tr>
-            </table>
-            <center>
-              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
-            </center>
-          </div>
-        </div>
-      </div>
-      <div id="movie3" class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
-               src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
-            <div class="caption">
-            <h3>Thumbnail label</h3>
-            <table>
-                <tr>
-                    <td class="releaseTitle">Release Date</td>
-                    <td class="release"></td>
-                </tr>
-                <tr>
-                    <td class="rating">Rating</td>
-                    <td class="stars"></td>
-                </tr>
-            </table>
-            <center>
-              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
-            </center>
-          </div>
-        </div>
-      </div>
-</div>
 <!-- movie listing display close -->
+<!-- vote script -->
 
+
+<!-- vote script close -->
 
 
 

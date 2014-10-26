@@ -12,8 +12,6 @@
 #white {
   color:white;
 }
-
-}
 .container-movie {
   max-width:70%; 
   min-height:200px; 
@@ -117,4 +115,7 @@ div#watch-list-counter {
     color: black;
     text-align: center;
     position: relative;
+}
+div#thumbnail {
+  height:755px;
 }
