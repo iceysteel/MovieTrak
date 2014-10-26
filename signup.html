@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MovieTrak</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
      <link href="css/custom.css" rel="stylesheet">
 
@@ -21,6 +21,18 @@
   </head>
   <body>
       <div id="fb-root"></div>
+
+  <!-- FB login -->
+  <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+  <!-- FB login end -->
+
 <script>        
       // Initialize Parse
   Parse.initialize("USMCT6fpQjxsgNsKoglDczi1HCsjSXe6EGf8FHRm", "YisYbx7FrBBo4EbKfFu6eTjr7JmvnwfCabLZNmyL");
@@ -32,15 +44,19 @@
       cookie     : true, // enable cookies to allow Parse to access the session
       xfbml      : true,
         version: 'v2.0'
-    });1
+    });
       
 Parse.FacebookUtils.logIn(null, {
   success: function(user) {
     if (!user.existed()) {
       alert("User signed up and logged in through Facebook!");
+
     } else {
       alert("User logged in through Facebook!");
     }
+    $("#userPic").html("<img src='http://graph.facebook.com/" + response.id + "/picture' />")
+    debugger
+    document.getElementById('#userPic').innerHTML = '<img src="http://graph.facebook.com/' + response.id + '/picture" />';
   },
   error: function(user, error) {
     alert("User cancelled the Facebook login or did not fully authorize.");
@@ -55,11 +71,14 @@ Parse.FacebookUtils.logIn(null, {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {return;}
     js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    js.src = "http://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-    
-    
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+    currentUser.set("profilePicUrl", "http://graph.facebook.com/" + response.id + "/picture" );
+  } 
+
     
 </script>
       
@@ -82,11 +101,13 @@ Parse.FacebookUtils.logIn(null, {
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-8">
+          <div id="userPic"></div>
           <ul class="nav navbar-nav" style="float:right; color:#fff;">
             <li class="active"><a href="#">About</a></li>
             <li><a href="#">Watch with Friends</a></li>
             <li><a href="#">Your Watchlist</a></li>
           </ul>
+         <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div> -->
         </div><!-- /.navbar-collapse -->
       </div>
     </nav>
@@ -95,7 +116,7 @@ Parse.FacebookUtils.logIn(null, {
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 <!-- The motherfuckin footer -->
