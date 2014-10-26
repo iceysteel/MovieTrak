@@ -37,11 +37,23 @@ $(document).ready(function() {
 
 // callback for when we get back the results
 function searchCallback(data) {
- $(document.body).append('Found ' + data.total + ' results for ' + query);
+    console.log(data);
  var movies = data.movies;
+
+ var movieCounter = 1;
  $.each(movies, function(index, movie) {
-   $(document.body).append('<div style="float:left;"><h1 class="lead">' + movie.title + '</h1>');
-   $(document.body).append('<img src="' + movie.posters.original + '" style="margin-right:10px;" /></div>');
+    if (movieCounter > 3) {
+        return false;
+    }
+    var movieDiv = $("#movie"+movieCounter)
+
+    var imgUrl = movie.posters.original;
+    imgUrl = imgUrl.replace("_tmb", "_deb");
+    $(movieDiv).find("div img").attr("src", imgUrl);
+    $(movieDiv).find("div div h3").text(movie.title);
+    //$(movieDiv).find("div div div").text("Rating: " + movie.ratings.audience_score);
+
+    movieCounter++;
  });
 }
 
@@ -64,41 +76,53 @@ function searchCallback(data) {
       <h3>
       <p style="margin-bottom:30px; margin-top:-20px;">Get notified when your movies are released. Watch them with friends.</p>
       </h3>
-      </container>
+      </center>
       <div>
 <!-- Jumbotron close -->
 <!-- Tile -->
-    <div class="row">
-  <div class="col-sm-6 col-md-4">
+<div class="row">
+      <div id="movie1" class="col-sm-6 col-md-4">
         <div class="thumbnail">
           <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; width: 100%; display: block;">
           <div class="caption">
             <h3>Thumbnail label</h3>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-             <center>
+            <div style="font-size: 14px; color: #787878;"></div>
+            <center>
               <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
             </center>
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-4">
+      <div id="movie2" class="col-sm-6 col-md-4">
         <div class="thumbnail">
-          <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; width: 100%; display: block;">
+          <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; display: block;">
           <div class="caption">
             <h3>Thumbnail label</h3>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-             <center>
+            <table>
+                <tr>
+                    <td style="font-size: 14px; color: #787878;">Rating</td>
+                    <td class="stars">
+                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
+                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
+                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
+                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
+                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
+                    </td>
+                </tr>
+            </table>
+
+            <center>
               <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
             </center>
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-4">
+      <div id="movie3" class="col-sm-6 col-md-4">
         <div class="thumbnail">
           <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; width: 100%; display: block;">
           <div class="caption">
             <h3>Thumbnail label</h3>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <div style="font-size: 14px; color: #787878;"></div>
             <center>
               <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
             </center>
