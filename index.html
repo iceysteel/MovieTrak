@@ -22,8 +22,8 @@ var apikey = "w78ab8sd5wzx3c2zuh3wakcu";
 var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0/lists";
 
 // construct the uri with our apikey
-var moviesSearchUrl = baseUrl + '/movies/upcoming.json?page_limit=1&apikey=' + apikey;
-var query = "batman";
+var moviesSearchUrl = baseUrl + '/movies/upcoming.json?page_limit=6&apikey=' + apikey;
+var query = "upcoming";
 
 $(document).ready(function() {
 
@@ -41,7 +41,7 @@ function searchCallback(data) {
  var movies = data.movies;
  $.each(movies, function(index, movie) {
    $(document.body).append('<div style="float:left;"><h1 class="lead">' + movie.title + '</h1>');
-   $(document.body).append('<img src="' + movie.posters.thumbnail + '" style="margin-right:10px;" /></div>');
+   $(document.body).append('<img src="' + movie.posters.original + '" style="margin-right:10px;" /></div>');
  });
 }
 
