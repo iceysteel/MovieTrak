@@ -11,8 +11,7 @@
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
        <!-- Include all compiled plugins (below), or include individual files as needed -->
          <script src="js/bootstrap.min.js"></script>
- <!-- Bootstrap -->
-    <!-- Bootstrap -->
+
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -22,8 +21,9 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
- <!-- Navbar start -->
+  </head>
+  <body>
+     <!-- Navbar start -->
   <div>
       <form class="navbar-form navbar-left" role="search">
     <div class="form-group">
@@ -34,113 +34,15 @@
   </div>
 <!-- Navbar end -->
 
-  </head>
-  
-
-<body>
 
 
-
-  <p>Powered by Coffee at <a href="http://www.ycombinator.com">Y-Combinator</a></p>
-
- 
-=======
-     <script>
-var apikey = "w78ab8sd5wzx3c2zuh3wakcu";
-var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0/lists";
-
-// construct the uri with our apikey
-var moviesSearchUrl = baseUrl + '/movies/upcoming.json?page_limit=6&apikey=' + apikey;
-var query = "upcoming";
-
-$(document).ready(function() {
-
-  // send off the query
-  $.ajax({
-    url: moviesSearchUrl + '&q=' + encodeURI(query),
-    dataType: "jsonp",
-    success: searchCallback
-  });
-});
-
-// callback for when we get back the results
-function searchCallback(data) {
- $(document.body).append('Found ' + data.total + ' results for ' + query);
- var movies = data.movies;
- $.each(movies, function(index, movie) {
-   $(document.body).append('<div style="float:left;"><h1 class="lead">' + movie.title + '</h1>');
-   $(document.body).append('<img src="' + movie.posters.original + '" style="margin-right:10px;" /></div>');
- });
-}
-
-
-    </script>
-  </head>
-  <body>
-    <!-- Jumbotron area -->
-    <div class="jumbotron">
-    <div class="container" style="color:white;">
-      <center>
-      <h1>MovieTrak</h1>
-      <p >Never Miss A Movie.</p>
-      <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
-    </center>
-    </div>
-    </div>
-    <div class="container">
-      <center>
-      <h3>
-      <p style="margin-bottom:30px; margin-top:-20px;">Get notified when your movies are released. Watch them with friends.</p>
-      </h3>
-      </container>
-      <div>
-<!-- Jumbotron close -->
-<!-- Tile -->
-    <div class="row">
-  <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; width: 100%; display: block;">
-          <div class="caption">
-            <h3>Thumbnail label</h3>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-             <center>
-              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
-            </center>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; width: 100%; display: block;">
-          <div class="caption">
-            <h3>Thumbnail label</h3>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-             <center>
-              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
-            </center>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-          <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; width: 100%; display: block;">
-          <div class="caption">
-            <h3>Thumbnail label</h3>
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <center>
-              <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
-            </center>
-          </div>
-        </div>
-      </div>
-</div>
-<div>
-  <p>Powered by Coffee at <a href="http://www.ycombinator.com">Y-Combinator</a></p>
-</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
->>>>>>> c692c07efdaca2cfcc0a88c44627fbe8c21fc5c4
+
+    <footer>
+        <p>Powered by Coffee at <a href="http://www.ycombinator.com">Y-Combinator</a></p>
+    </footer>
   </body>
 </html>
