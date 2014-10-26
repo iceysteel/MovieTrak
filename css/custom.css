@@ -9,6 +9,11 @@
   max-height: 200px;
   background-color: #red;
 }
+#white {
+  color:white;
+}
+
+}
 .container-movie {
   max-width:70%; 
   min-height:200px; 
