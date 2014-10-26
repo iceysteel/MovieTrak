@@ -91,3 +91,7 @@
         color: #333;
     }
 }
+
+div#fb-login-btn {
+    margin-top: 12px;
+}
