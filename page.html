@@ -94,6 +94,15 @@
             }
         }
 
+        function updateWatchCounter() {
+            var currentWatchList = getCurrentWatchList();
+            var watchListLength = 0;
+            if (currentWatchList) {
+                watchListLength = currentWatchList.length;
+            }
+            $("#watch-list-counter").text(watchListLength);
+        }
+
         function theUltimateQuestionOfLifeTheUniverseAndEverything() {
 
             var user = Parse.User.current();
@@ -104,12 +113,7 @@
                 $("#userPic").show();
             }
 
-            var currentWatchList = getCurrentWatchList();
-            var watchListLength = 0;
-            if (currentWatchList) {
-                watchListLength = currentWatchList.length;
-            }
-            $("#watch-list-counter").text(watchListLength);
+            updateWatchCounter();
         }
 
 
