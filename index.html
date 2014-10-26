@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/movie-track.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,7 +52,19 @@ function searchCallback(data) {
     imgUrl = imgUrl.replace("_tmb", "_deb");
     $(movieDiv).find("div img").attr("src", imgUrl);
     $(movieDiv).find("div div h3").text(movie.title);
-    //$(movieDiv).find("div div div").text("Rating: " + movie.ratings.audience_score);
+
+    var stars = 1;
+    var rating = movie.ratings.audience_score;
+    if (rating > 85) {
+        stars = 5;
+    } else if (rating > 60) {
+        stars = 4;
+    } else if (rating > 45) {
+        stars = 3;
+    } else if (rating > 25) {
+        stars = 2;
+    }
+    $(movieDiv).find("div table .stars").addClass("stars"+stars);
 
     movieCounter++;
  });
@@ -83,10 +96,16 @@ function searchCallback(data) {
 <div class="row">
       <div id="movie1" class="col-sm-6 col-md-4">
         <div class="thumbnail">
-          <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; width: 100%; display: block;">
-          <div class="caption">
+          <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
+               src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
+            <div class="caption">
             <h3>Thumbnail label</h3>
-            <div style="font-size: 14px; color: #787878;"></div>
+            <table>
+                <tr>
+                    <td class="rating">Rating</td>
+                    <td class="stars"></td>
+                </tr>
+            </table>
             <center>
               <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
             </center>
@@ -95,22 +114,16 @@ function searchCallback(data) {
       </div>
       <div id="movie2" class="col-sm-6 col-md-4">
         <div class="thumbnail">
-          <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; display: block;">
-          <div class="caption">
+            <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
+                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
+            <div class="caption">
             <h3>Thumbnail label</h3>
             <table>
                 <tr>
-                    <td style="font-size: 14px; color: #787878;">Rating</td>
-                    <td class="stars">
-                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
-                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
-                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
-                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
-                        <span style="display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; position: relative;"></span>
-                    </td>
+                    <td class="rating">Rating</td>
+                    <td class="stars"></td>
                 </tr>
             </table>
-
             <center>
               <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
             </center>
@@ -119,10 +132,16 @@ function searchCallback(data) {
       </div>
       <div id="movie3" class="col-sm-6 col-md-4">
         <div class="thumbnail">
-          <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=" style="height: 200px; width: 100%; display: block;">
-          <div class="caption">
+            <img class="movie-image" data-src="holder.js/100%x200" alt="100%x200"
+                 src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDIiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEyMSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE1cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjQyeDIwMDwvdGV4dD48L3N2Zz4=">
+            <div class="caption">
             <h3>Thumbnail label</h3>
-            <div style="font-size: 14px; color: #787878;"></div>
+            <table>
+                <tr>
+                    <td class="rating">Rating</td>
+                    <td class="stars"></td>
+                </tr>
+            </table>
             <center>
               <p><a href="#" class="btn btn-default" role="button">Add to Watchlist</a></p>
             </center>
